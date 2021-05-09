@@ -1,0 +1,75 @@
+
+
+
+def ilk():
+
+		giriş authenticate işlemlerini yaptık
+
+	
+
+	giriş yaptıktan sonra profil ekranını açtıktan sonra böyle yazıları ekleyebileceğimiz 
+	
+	2 textalanı ve 4 buton bulunan bir sayfaya floatingactionbutton ile gittim
+
+	orada ekle güncelle sil getir işlemlerini yaptık
+
+	tabi yazıları bir sayfada listeleyecek olsaydım?
+
+	firestore da yeni collection açıyoruz, Yazilar diye 
+	 random belge ekleyelim
+	 yazi1 belgesinin baslik ve icerik isimli 2 alan olsun 
+	  bu arada (flutter içindeki map ifadesiyle firebasedeki belge ifadesi aynı olsun )
+	  	.set({'baslik': t1.text, 'icerik': t2.text}) burası firebase collection içindeki belgede aynı olsun
+
+
+
+
+def yazilarin_Gosterildigi_Sayfa():
+		burada yazilari gösterelim
+		anasayfa.dart oluşturdum
+
+		firebase flutter dev e giriş yaptım
+
+		cloud firestore altında usage buldum ve orada realtime changes kısmını kopyaladım UserInfo sınıfnı yani 
+
+		bunu yapıştırdım kütüphanelerini filan eklettim
+
+		collection ve document isimlerii kendi projeme göre düzeltiyorum
+
+		son olarak aldığımız koda bir scaffold ekleyelim die yukarıda stateless bir scaffold oluşturuyorum
+			scaffoldun bodysine classimizi verebiliriz
+
+
+
+		şuana kadar belgelerimizin başlık ve içeriklerini aldık kime ait oldugunuda alalım
+
+		biz id sini koyalım
+
+		firebase.flutter kaynağında authentication kısmında bakıyorum id nasıl alınır die
+		currentUser= kullanıcının bilgilerini çekebilir die onu arattım ve
+			FirebaseAuth auth = FirebaseAuth.instance;
+			if(auth.currentUser.uid;)
+
+			if içindeki yerde id sini çekebilirim 
+
+		yazı eklediğim yazisayfasında ekleme bölümüne bu uid li kısmı ekleyeceğim			
+		
+		tmm artık dbde eski kayıtlardan sonra yeni eklenn kayıtlar hep id li kaydediliyor
+		profil sayfasında sadece o id ait olanları gösterelim o zaman
+
+
+		sayfaya tasarımı koyduk listview ile sıralayacağız ok
+
+		şimdi napacaz, sadece o anki kullanıcı verilerini göstereceğiz
+		o zaman dbden sadece onun verilerini alacağız
+
+
+		CollectionReference users = FirebaseFirestore.instance.collection('Yazilar');
+		ifadesi bize Yazilar kolleksiyonunda veri çekior
+		ama artık
+		Query users = FirebaseFirestore.instance.collection('Yazilar');
+		olsun bu
+
+
+		Query users = FirebaseFirestore.instance.collection('Yazilar').where("kullaniciid", isEqualTo: users.currentUser.uid);
+		burada where bir koşul yazdırı. anla artık...
